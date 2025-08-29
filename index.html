@@ -1,61 +1,192 @@
-<!DOCTYPE html>
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Taupo Nerd</title>
-  <meta name="description" content="Taupo’s own hub for nerd culture, tech, and creativity.">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starbyte Realm</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
-<body>
-  <header>
-    <div class="wrapper">
-      <h1 class="logo">Taupo Nerd</h1>
-      <nav>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Articles</a></li>
-          <li><a href="#">Projects</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+<body class="font-['Press_Start_2P'] text-white relative overflow-hidden">
+    <!-- Canvas for subtle starfield background -->
+    <canvas id="starfield" class="absolute top-0 left-0 w-full h-full -z-10"></canvas>
+    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/70 to-gray-900/90 -z-5"></div>
 
-  <section class="hero">
-    <div class="wrapper">
-      <h2>Welcome to Taupo Nerd</h2>
-      <p>Exploring tech, creativity, and the nerdy side of life in Taupo and beyond.</p>
-      <a href="#articles" class="btn">Dive In</a>
-    </div>
-  </section>
-
-  <main>
-    <section id="articles" class="features">
-      <div class="wrapper">
-        <article>
-          <h3>Tech Deep Dives</h3>
-          <p>In-depth articles on everything from coding to gadgets and innovation.</p>
-        </article>
-        <article>
-          <h3>Local Projects</h3>
-          <p>Get inspired by tech and creative projects happening right here in Taupo.</p>
-        </article>
-        <article>
-          <h3>Community Events</h3>
-          <p>Stay updated with meetups, workshops, and cool nerdy happenings in town.</p>
-        </article>
-      </div>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 relative">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6 animate-pulse text-neon-blue">
+            Starbyte Realm
+        </h1>
+        <p class="text-base md:text-lg text-gray-300 mb-8 max-w-xl">
+            Dive into a universe of retro-inspired adventures, epic battles, and geek glory.
+        </p>
+        <a href="#play-now" class="bg-neon-green hover:bg-neon-green-dark text-black font-semibold py-3 px-8 rounded-lg text-base transition duration-300 pixel-border">
+            Launch Adventure
+        </a>
     </section>
-  </main>
 
-  <footer>
-    <div class="wrapper">
-      <p>&copy; 2025 Taupo Nerd</p>
-      <p><a href="#">Privacy Policy</a> | <a href="#">FAQ</a></p>
-    </div>
-  </footer>
+    <!-- Features Section -->
+    <section id="play-now" class="py-16ස
 
+ystem: 16 px-4 bg-gray-900 bg-opacity-80 rounded-lg shadow-lg pixel-border">
+                <h3 class="text-xl font-bold mb-4 text-neon-blue">Retro Quests</h3>
+                <p class="text-gray-300 text-sm">
+                    Explore pixel-art worlds with deep, story-driven RPG campaigns.
+                </p>
+            </div>
+            <div class="p-6 bg-gray-900 bg-opacity-80 rounded-lg shadow-lg pixel-border">
+                <h3 class="text-xl font-bold mb-4 text-neon-green">Competitive Play</h3>
+                <p class="text-gray-300 text-sm">
+                    Test your skills in fast-paced multiplayer battles with friends.
+                </p>
+            </div>
+            <div class="p-6 bg-gray-900 bg-opacity-80 rounded-lg shadow-lg pixel-border">
+                <h3 class="text-xl font-bold mb-4 text-neon-pink">Creative Mods</h3>
+                <p class="text-gray-300 text-sm">
+                    Build custom levels and skins with our intuitive modding tools.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black bg-opacity-50 py-8 text-center relative">
+        <p class="text-gray-400 text-sm">&copy; 2025 Starbyte Realm. All rights reserved.</p>
+    </footer>
+
+    <style>
+        /* Custom neon colors */
+        :root {
+            --neon-green: #39FF14;
+            --neon-blue: #1BFFFF;
+            --neon-pink: #FF2D55;
+            --neon-green-dark: #2ECC10;
+        }
+
+        .text-neon-green {
+            color: var(--neon-green);
+            text-shadow: 0 0 8px var(--neon-green);
+        }
+
+        .text-neon-blue {
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px var(--neon-blue);
+        }
+
+        .text-neon-pink {
+            color: var(--neon-pink);
+            text-shadow: 0 0 8px var(--neon-pink);
+        }
+
+        .bg-neon-green {
+            background-color: var(--neon-green);
+        }
+
+        .bg-neon-green-dark {
+            background-color: var(--neon-green-dark);
+        }
+
+        /* Pixelated border */
+        .pixel-border {
+            border: 3px solid;
+            border-image: linear-gradient(to right, var(--neon-blue), var(--neon-green)) 1;
+        }
+
+        /* Subtle pulse animation for hero text */
+        .animate-pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+    </style>
+
+    <script>
+        // Subtle starfield background
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Starfield elements
+        const stars = [];
+        const numStars = 100;
+
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2 + 1,
+                speed: Math.random() * 0.5 + 0.2
+            });
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 20, 0.3)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw and move stars
+            stars.forEach(star => {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.fillRect(star.x, star.y, star.size, star.size);
+                star.y += star.speed;
+                if (star.y > canvas.height) star.y = 0; // Reset star to top
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
 </body>
 </html>
