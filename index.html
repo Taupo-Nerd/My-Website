@@ -1,192 +1,115 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starbyte Realm</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-</head>
-<body class="font-['Press_Start_2P'] text-white relative overflow-hidden">
-    <!-- Canvas for subtle starfield background -->
-    <canvas id="starfield" class="absolute top-0 left-0 w-full h-full -z-10"></canvas>
-    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/70 to-gray-900/90 -z-5"></div>
-
-    <!-- Hero Section -->
-    <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 relative">
-        <h1 class="text-4xl md:text-5xl font-bold mb-6 animate-pulse text-neon-blue">
-            Starbyte Realm
-        </h1>
-        <p class="text-base md:text-lg text-gray-300 mb-8 max-w-xl">
-            Dive into a universe of retro-inspired adventures, epic battles, and geek glory.
-        </p>
-        <a href="#play-now" class="bg-neon-green hover:bg-neon-green-dark text-black font-semibold py-3 px-8 rounded-lg text-base transition duration-300 pixel-border">
-            Launch Adventure
-        </a>
-    </section>
-
-    <!-- Features Section -->
-    <section id="play-now" class="py-16ස
-
-ystem: 16 px-4 bg-gray-900 bg-opacity-80 rounded-lg shadow-lg pixel-border">
-                <h3 class="text-xl font-bold mb-4 text-neon-blue">Retro Quests</h3>
-                <p class="text-gray-300 text-sm">
-                    Explore pixel-art worlds with deep, story-driven RPG campaigns.
-                </p>
-            </div>
-            <div class="p-6 bg-gray-900 bg-opacity-80 rounded-lg shadow-lg pixel-border">
-                <h3 class="text-xl font-bold mb-4 text-neon-green">Competitive Play</h3>
-                <p class="text-gray-300 text-sm">
-                    Test your skills in fast-paced multiplayer battles with friends.
-                </p>
-            </div>
-            <div class="p-6 bg-gray-900 bg-opacity-80 rounded-lg shadow-lg pixel-border">
-                <h3 class="text-xl font-bold mb-4 text-neon-pink">Creative Mods</h3>
-                <p class="text-gray-300 text-sm">
-                    Build custom levels and skins with our intuitive modding tools.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-black bg-opacity-50 py-8 text-center relative">
-        <p class="text-gray-400 text-sm">&copy; 2025 Starbyte Realm. All rights reserved.</p>
-    </footer>
-
+    <title>Gamer Hub</title>
+    <!-- Favicon: Save the provided photo as 'favicon.png' in the same directory as this HTML file -->
+    <link rel="icon" type="image/png" href="favicon.png">
     <style>
-        /* Custom neon colors */
-        :root {
-            --neon-green: #39FF14;
-            --neon-blue: #1BFFFF;
-            --neon-pink: #FF2D55;
-            --neon-green-dark: #2ECC10;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://images.pexels.com/photos/1038916/pexels-photo-1038916.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #ffffff;
         }
-
-        .text-neon-green {
-            color: var(--neon-green);
-            text-shadow: 0 0 8px var(--neon-green);
+        header {
+            background-color: rgba(31, 31, 31, 0.8);
+            padding: 20px;
+            text-align: center;
         }
-
-        .text-neon-blue {
-            color: var(--neon-blue);
-            text-shadow: 0 0 8px var(--neon-blue);
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
         }
-
-        .text-neon-pink {
-            color: var(--neon-pink);
-            text-shadow: 0 0 8px var(--neon-pink);
+        nav {
+            background-color: rgba(51, 51, 51, 0.9);
+            padding: 10px;
+            text-align: center;
         }
-
-        .bg-neon-green {
-            background-color: var(--neon-green);
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.2em;
         }
-
-        .bg-neon-green-dark {
-            background-color: var(--neon-green-dark);
+        nav a:hover {
+            color: #ff4500;
         }
-
-        /* Pixelated border */
-        .pixel-border {
-            border: 3px solid;
-            border-image: linear-gradient(to right, var(--neon-blue), var(--neon-green)) 1;
+        main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
         }
-
-        /* Subtle pulse animation for hero text */
-        .animate-pulse {
-            animation: pulse 2s ease-in-out infinite;
+        .hero, .section {
+            background-color: rgba(34, 34, 34, 0.9);
+            padding: 20px;
+            border-radius: 8px;
         }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
+        .hero {
+            text-align: center;
+        }
+        .hero h2 {
+            font-size: 2em;
+        }
+        .section h3 {
+            font-size: 1.8em;
+            border-bottom: 2px solid #ff4500;
+            padding-bottom: 10px;
+        }
+        footer {
+            background-color: rgba(31, 31, 31, 0.8);
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9em;
         }
     </style>
-
-    <script>
-        // Subtle starfield background
-        const canvas = document.getElementById('starfield');
-        const ctx = canvas.getContext('2d');
-
-        // Set canvas size
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        // Resize canvas on window resize
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Starfield elements
-        const stars = [];
-        const numStars = 100;
-
-        for (let i = 0; i < numStars; i++) {
-            stars.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                size: Math.random() * 2 + 1,
-                speed: Math.random() * 0.5 + 0.2
-            });
-        }
-
-        // Animation loop
-        function animate() {
-            ctx.fillStyle = 'rgba(0, 0, 20, 0.3)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Draw and move stars
-            stars.forEach(star => {
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-                ctx.fillRect(star.x, star.y, star.size, star.size);
-                star.y += star.speed;
-                if (star.y > canvas.height) star.y = 0; // Reset star to top
-            });
-
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-    </script>
+</head>
+<body>
+    <header>
+        <h1>Gamer Hub</h1>
+        <p>Your Ultimate Gaming Destination</p>
+    </header>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#games">Games</a>
+        <a href="#news">News</a>
+        <a href="#forum">Forum</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <main>
+        <section id="home" class="hero">
+            <h2>Welcome to Gamer Hub!</h2>
+            <p>Dive into the world of gaming with the latest news, reviews, and community discussions. Whether you're a casual player or a hardcore gamer, we've got something for everyone.</p>
+        </section>
+        <section id="games" class="section">
+            <h3>Popular Games</h3>
+            <ul>
+                <li>Fortnite - Battle Royale Action</li>
+                <li>League of Legends - MOBA Strategy</li>
+                <li>Cyberpunk 2077 - Open-World RPG</li>
+                <li>Among Us - Social Deduction Fun</li>
+            </ul>
+        </section>
+        <section id="news" class="section">
+            <h3>Latest Gaming News</h3>
+            <p>Stay updated with the newest releases, updates, and industry events. Check back often for fresh content!</p>
+        </section>
+        <section id="forum" class="section">
+            <h3>Join the Forum</h3>
+            <p>Discuss your favorite games, share tips, and connect with other gamers in our community forum.</p>
+        </section>
+        <section id="contact" class="section">
+            <h3>Contact Us</h3>
+            <p>Email: info@gamerhub.com | Follow us on social media!</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Gamer Hub. All rights reserved. | Last updated: 09:01 AM NZST, Saturday, August 30, 2025</p>
+    </footer>
 </body>
 </html>
