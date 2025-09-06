@@ -3,113 +3,246 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gamer Hub</title>
-    <!-- Favicon: Save the provided photo as 'favicon.png' in the same directory as this HTML file -->
-    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Tech Geek in Taupo</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-image: url('https://images.pexels.com/photos/1038916/pexels-photo-1038916.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: #ffffff;
+            box-sizing: border-box;
+            font-family: 'Orbitron', sans-serif;
         }
+
+        body {
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
         header {
-            background-color: rgba(31, 31, 31, 0.8);
-            padding: 20px;
+            background: url('https://images.unsplash.com/photo-1592210454359-9043f067919b?auto=format&fit=crop&w=1920') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            position: relative;
         }
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
         }
-        nav {
-            background-color: rgba(51, 51, 51, 0.9);
-            padding: 10px;
-            text-align: center;
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
-        nav a {
-            color: #ffffff;
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            color: #00ff88;
+            text-shadow: 0 0 10px #00ff88;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: #00ff88;
+            color: #0a0a0a;
             text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.2em;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
         }
-        nav a:hover {
-            color: #ff4500;
+
+        .btn:hover {
+            background: #00cc70;
+            transform: translateY(-2px);
         }
-        main {
+
+        section {
+            padding: 4rem 2rem;
             max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
+            margin: 0 auto;
         }
-        .hero, .section {
-            background-color: rgba(34, 34, 34, 0.9);
-            padding: 20px;
-            border-radius: 8px;
+
+        h2 {
+            font-size: 2.5rem;
+            color: #00ff88;
+            text-align: center;
+            margin-bottom: 2rem;
         }
-        .hero {
+
+        .about, .skills, .projects, .contact {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
             text-align: center;
         }
-        .hero h2 {
-            font-size: 2em;
+
+        .skill-item {
+            background: #2a2a2a;
+            padding: 1rem;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
         }
-        .section h3 {
-            font-size: 1.8em;
-            border-bottom: 2px solid #ff4500;
-            padding-bottom: 10px;
+
+        .skill-item:hover {
+            transform: scale(1.05);
         }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: #2a2a2a;
+            padding: 1.5rem;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: scale(1.03);
+        }
+
+        .project-card h3 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+        }
+
+        .contact form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact input, .contact textarea {
+            padding: 0.8rem;
+            background: #2a2a2a;
+            border: 1px solid #00ff88;
+            border-radius: 5px;
+            color: #e0e0e0;
+        }
+
+        .contact input:focus, .contact textarea:focus {
+            outline: none;
+            box-shadow: 0 0 10px #00ff88;
+        }
+
         footer {
-            background-color: rgba(31, 31, 31, 0.8);
-            padding: 10px;
             text-align: center;
-            font-size: 0.9em;
+            padding: 2rem;
+            background: #1a1a1a;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            section {
+                padding: 2rem 1rem;
+            }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Gamer Hub</h1>
-        <p>Your Ultimate Gaming Destination</p>
+        <div class="hero-content">
+            <h1>Tech Geek of Taupo</h1>
+            <p>Coding, hacking, and geeking out by Lake Taupo</p>
+            <a href="#about" class="btn">Discover More</a>
+        </div>
     </header>
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#games">Games</a>
-        <a href="#news">News</a>
-        <a href="#forum">Forum</a>
-        <a href="#contact">Contact</a>
-    </nav>
-    <main>
-        <section id="home" class="hero">
-            <h2>Welcome to Gamer Hub!</h2>
-            <p>Dive into the world of gaming with the latest news, reviews, and community discussions. Whether you're a casual player or a hardcore gamer, we've got something for everyone.</p>
-        </section>
-        <section id="games" class="section">
-            <h3>Popular Games</h3>
-            <ul>
-                <li>Fortnite - Battle Royale Action</li>
-                <li>League of Legends - MOBA Strategy</li>
-                <li>Cyberpunk 2077 - Open-World RPG</li>
-                <li>Among Us - Social Deduction Fun</li>
-            </ul>
-        </section>
-        <section id="news" class="section">
-            <h3>Latest Gaming News</h3>
-            <p>Stay updated with the newest releases, updates, and industry events. Check back often for fresh content!</p>
-        </section>
-        <section id="forum" class="section">
-            <h3>Join the Forum</h3>
-            <p>Discuss your favorite games, share tips, and connect with other gamers in our community forum.</p>
-        </section>
-        <section id="contact" class="section">
-            <h3>Contact Us</h3>
-            <p>Email: info@gamerhub.com | Follow us on social media!</p>
-        </section>
-    </main>
+
+    <section id="about" class="about">
+        <h2>About Me</h2>
+        <p>Hey there! I'm a tech enthusiast living in the stunning town of Taupo, New Zealand. By day, I code cutting-edge applications; by night, I tinker with gadgets and explore the latest in AI, IoT, and open-source tech. Inspired by Taupo's geothermal energy and serene lakes, I bring a spark of creativity to everything I build.</p>
+    </section>
+
+    <section id="skills" class="skills">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-item">Python</div>
+            <div class="skill-item">JavaScript</div>
+            <div class="skill-item">React</div>
+            <div class="skill-item">Node.js</div>
+            <div class="skill-item">AI/ML</div>
+            <div class="skill-item">Linux</div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>Lake Taupo Weather App</h3>
+                <p>A real-time weather dashboard for Taupo locals, built with React and integrated with a public weather API. Features stunning visuals inspired by the lake.</p>
+            </div>
+            <div class="project-card">
+                <h3>Geothermal IoT Monitor</h3>
+                <p>An IoT project to monitor Taupo's geothermal activity using Raspberry Pi and custom sensors, with data visualized in a web app.</p>
+            </div>
+            <div class="project-card">
+                <h3>Open-Source Code Editor</h3>
+                <p>A lightweight, customizable code editor built with Electron, designed for developers who love a Taupo-inspired dark theme.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Contact Me</h2>
+        <form action="https://formspree.io/f/your-form-id" method="POST">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+    </section>
+
     <footer>
-        <p>&copy; 2025 Gamer Hub. All rights reserved. | Last updated: 09:01 AM NZST, Saturday, August 30, 2025</p>
+        <p>&copy; 2025 Tech Geek in Taupo. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
