@@ -1,248 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taupo Geek</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Orbitron', sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cool Website</title>
+  <style>
+    /* Reset & base styling */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; color: #333; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
 
-        body {
-            background: #0a0a0a;
-            color: #e0e0e0;
-            line-height: 1.6;
-        }
+    /* Hero / header section */
+    header {
+      height: 100vh;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 0 20px;
+    }
+    header h1 {
+      font-size: 3em;
+      margin-bottom: 0.3em;
+    }
+    header p {
+      font-size: 1.3em;
+    }
 
-        header {
-            background: url('https://images.unsplash.com/photo-1592210454359-9043f067919b?auto=format&fit=crop&w=1920') no-repeat center center/cover;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-        }
+    /* Navigation */
+    nav {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    nav ul { list-style: none; display: flex; gap: 15px; }
+    nav ul li a { font-weight: bold; color: white; }
 
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-        }
+    /* Main content */
+    main {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    section {
+      margin-bottom: 60px;
+    }
+    section h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    section p {
+      font-size: 1.1em;
+    }
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
+    /* Cards grid */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .cards .card {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .cards .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
 
-        .hero-content h1 {
-            font-size: 3.5rem;
-            color: #00ff88;
-            text-shadow: 0 0 10px #00ff88;
-        }
-
-        .hero-content p {
-            font-size: 1.5rem;
-            margin: 1rem 0;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background: #00ff88;
-            color: #0a0a0a;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #00cc70;
-            transform: translateY(-2px);
-        }
-
-        section {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            color: #00ff88;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .about, .skills, .projects, .contact {
-            background: #1a1a1a;
-            border-radius: 10px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.5rem;
-            text-align: center;
-        }
-
-        .skill-item {
-            background: #2a2a2a;
-            padding: 1rem;
-            border-radius: 5px;
-            transition: transform 0.3s ease;
-        }
-
-        .skill-item:hover {
-            transform: scale(1.05);
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .project-card {
-            background: #2a2a2a;
-            padding: 1.5rem;
-            border-radius: 5px;
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: scale(1.03);
-        }
-
-        .project-card h3 {
-            color: #00ff88;
-            margin-bottom: 1rem;
-        }
-
-        .contact form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact input, .contact textarea {
-            padding: 0.8rem;
-            background: #2a2a2a;
-            border: 1px solid #00ff88;
-            border-radius: 5px;
-            color: #e0e0e0;
-        }
-
-        .contact input:focus, .contact textarea:focus {
-            outline: none;
-            box-shadow: 0 0 10px #00ff88;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: #1a1a1a;
-            color: #888;
-        }
-
-        @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-content p {
-                font-size: 1.2rem;
-            }
-
-            section {
-                padding: 2rem 1rem;
-            }
-        }
-    </style>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    /* Footer */
+    footer {
+      background: #222;
+      color: #ccc;
+      text-align: center;
+      padding: 30px 20px;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="hero-content">
-            <h1>Tech Geek of Taupo</h1>
-            <p>Coding, hacking, and geeking out by Lake Taupo</p>
-            <a href="#about" class="btn">Discover More</a>
+
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h1>Welcome to My Cool Site</h1>
+      <p>Crafting experiences. Engaging visuals. Modern web.</p>
+    </div>
+  </header>
+
+  <main>
+    <section id="features">
+      <h2>Features</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Feature One</h3>
+          <p>Some brief description of the first feature. What makes it stand out?</p>
         </div>
-    </header>
-
-    <section id="about" class="about">
-        <h2>About Me</h2>
-        <p>Hey there! I'm a tech enthusiast living in the stunning town of Taupo, New Zealand. By day, I code cutting-edge applications; by night, I tinker with gadgets and explore the latest in AI, IoT, and open-source tech. Inspired by Taupo's geothermal energy and serene lakes, I bring a spark of creativity to everything I build.</p>
-    </section>
-
-    <section id="skills" class="skills">
-        <h2>Skills</h2>
-        <div class="skills-grid">
-            <div class="skill-item">Python</div>
-            <div class="skill-item">JavaScript</div>
-            <div class="skill-item">React</div>
-            <div class="skill-item">Node.js</div>
-            <div class="skill-item">AI/ML</div>
-            <div class="skill-item">Linux</div>
+        <div class="card">
+          <h3>Feature Two</h3>
+          <p>Description of another awesome capability. Why should users care?</p>
         </div>
-    </section>
-
-    <section id="projects" class="projects">
-        <h2>Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <h3>Lake Taupo Weather App</h3>
-                <p>A real-time weather dashboard for Taupo locals, built with React and integrated with a public weather API. Features stunning visuals inspired by the lake.</p>
-            </div>
-            <div class="project-card">
-                <h3>Geothermal IoT Monitor</h3>
-                <p>An IoT project to monitor Taupo's geothermal activity using Raspberry Pi and custom sensors, with data visualized in a web app.</p>
-            </div>
-            <div class="project-card">
-                <h3>Open-Source Code Editor</h3>
-                <p>A lightweight, customizable code editor built with Electron, designed for developers who love a Taupo-inspired dark theme.</p>
-            </div>
+        <div class="card">
+          <h3>Feature Three</h3>
+          <p>Yet another highlight of what this site/project offers.</p>
         </div>
+      </div>
     </section>
 
-    <section id="contact" class="contact">
-        <h2>Contact Me</h2>
-        <form action="https://formspree.io/f/your-form-id" method="POST">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-            <button type="submit" class="btn">Send Message</button>
-        </form>
+    <section id="about">
+      <h2>About Us</h2>
+      <p>Here’s some information about who we are, what we do, and why we do it. Make it compelling.</p>
     </section>
 
-    <footer>
-        <p>&copy; 2025 Taupo Geek. All rights reserved.</p>
-    </footer>
+    <section id="contact">
+      <h2>Get in Touch</h2>
+      <p>Have questions? Reach out via email or social. Connect and let’s start something great.</p>
+    </section>
+  </main>
 
-    <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+  <footer>
+    <p>&copy; 2025 My Cool Site. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>
