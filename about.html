@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About // Benji//66</title>
-    <meta name="description" content="Who runs the matrix? You do.">
+    <title>About // NEXUS//42</title>
+    <meta name="description" content="One human. Zero frameworks. Infinite neon.">
     <link rel="icon" href="/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=orbitron:400,700|rajdhani:400,600" rel="stylesheet">
@@ -22,22 +22,38 @@
         .theme-toggle{background:0 0;border:2px solid var(--fg);color:var(--fg);padding:.4rem .8rem;border-radius:50px;cursor:pointer;font-weight:600;transition:.3s}
         .theme-toggle:hover{background:var(--fg);color:var(--bg)}
 
-        .about{height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
-        .card{max-width:720px;width:100%;background:rgba(255,255,255,.03);padding:3rem 2.5rem;border-radius:16px;border:1px solid rgba(0,255,234,.2);backdrop-filter:blur(12px);box-shadow:0 20px 40px rgba(0,255,234,.1)}
-        h1{font-family:'Orbitron',monospace;font-size:clamp(2.8rem,9vw,5rem);color:var(--fg);text-shadow:0 0 40px var(--fg);margin-bottom:.5rem;text-align:center;animation:glow 2s ease-in-out infinite alternate}
-        .tagline{text-align:center;font-size:1.3rem;margin:1rem 0 2.5rem;color:var(--light)}
-        .bio{font-size:1.15rem;max-width:640px;margin:0 auto 2rem}
-        .bio p{margin-bottom:1.2rem}
-        .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:2rem 0}
-        .skill{background:rgba(0,255,234,.1);padding:.9rem 1.2rem;border-radius:8px;text-align:center;border:1px solid rgba(0,255,234,.3);transition:.3s}
-        .skill:hover{background:var(--fg);color:var(--bg);transform:translateY(-4px)}
-        .cta{display:inline-block;margin:2rem auto 0;padding:1rem 2.5rem;background:0 0;border:2px solid var(--fg);color:var(--fg);font-size:1.2rem;font-weight:600;border-radius:50px;text-decoration:none;position:relative;overflow:hidden;transition:.4s}
-        .cta::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--fg);transition:.5s;z-index:-1}
-        .cta:hover::before{left:0}
-        .cta:hover{color:var(--bg)}
+        /* FIXED HEADER OVERLAP */
+        .about{padding-top:100px;display:flex;align-items:center;justify-content:center;min-height:100vh}
+        @media(max-width:640px){.about{padding-top:80px}}
 
-        footer{padding:2rem 5%;text-align:center;border-top:1px solid rgba(0,255,234,.1);color:var(--light);font-size:.9rem}
-        @keyframes glow{from{text-shadow:0 0 20px var(--fg)}to{text-shadow:0 0 60px var(--fg),0 0 80px var(--fg)}}
+        .card{max-width:760px;width:100%;background:rgba(255,255,255,.03);padding:3.5rem 3rem;border-radius:20px;border:1px solid rgba(0,255,234,.25);backdrop-filter:blur(14px);box-shadow:0 30px 60px rgba(0,255,234,.15);animation:fadeIn 1s ease-out}
+        h1{font-family:'Orbitron',monospace;font-size:clamp(3rem,10vw,6rem);color:var(--fg);text-shadow:0 0 50px var(--fg);text-align:center;margin-bottom:.4rem;animation:glow 2s ease-in-out infinite alternate}
+        .tagline{text-align:center;font-size:1.4rem;margin:1rem 0 3rem;opacity:.9}
+
+        .bio{font-size:1.2rem;max-width:680px;margin:0 auto 3rem;line-height:1.9}
+        .bio p{margin-bottom:1.4rem}
+        .highlight{color:var(--fg);font-weight:600}
+
+        .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;margin:3rem 0}
+        .skill{background:rgba(0,255,234,.12);padding:1.2rem 1.4rem;border-radius:12px;text-align:center;border:1px solid rgba(0,255,234,.3);transition:.4s;animation:float 6s ease-in-out infinite}
+        .skill:hover{background:var(--fg);color:var(--bg);transform:translateY(-8px);box-shadow:0 0 30px rgba(0,255,234,.6)}
+        .skill:nth-child(2){animation-delay:1s}
+        .skill:nth-child(3){animation-delay:2s}
+        .skill:nth-child(4){animation-delay:3s}
+        .skill:nth-child(5){animation-delay:4s}
+        .skill:nth-child(6){animation-delay:5s}
+
+        .cta-wrapper{text-align:center;margin:3rem 0 1rem}
+        .cta{display:inline-block;padding:1.1rem 3rem;background:0 0;border:2px solid var(--fg);color:var(--fg);font-size:1.3rem;font-weight:600;border-radius:60px;text-decoration:none;position:relative;overflow:hidden;transition:.5s}
+        .cta::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--fg);transition:.6s;z-index:-1}
+        .cta:hover::before{left:0}
+        .cta:hover{color:var(--bg);box-shadow:0 0 40px var(--fg)}
+
+        footer{padding:2.5rem 5%;text-align:center;border-top:1px solid rgba(0,255,234,.1);color:var(--light);font-size:.95rem}
+
+        @keyframes glow{from{text-shadow:0 0 30px var(--fg)}to{text-shadow:0 0 70px var(--fg),0 0 90px var(--fg)}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
     </style>
 </head>
 <body>
@@ -45,41 +61,43 @@
 <canvas id="matrix"></canvas>
 
 <header>
-    <div class="logo">Benji//66</div>
+    <div class="logo">NEXUS//42</div>
     <nav>
         <a href="/">Home</a>
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
-        <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        <button class="theme-toggle" onclick="toggleTheme()">Dark Mode</button>
     </nav>
 </header>
 
 <section class="about">
     <div class="card">
-        <h1>WHO AM I?</h1>
-        <p class="tagline">I turn caffeine into code and bugs into features.</p>
+        <h1>BEN.TG</h1>
+        <p class="tagline">I build websites that load before you blink.</p>
 
         <div class="bio">
-            <p>Hey — I’m <strong>Ben</strong>, the one-man glitch in the matrix behind Ta30-Geeks.</p>
-            <p>By day I wrangle servers in Taupo, New Zealand. By night I build neon websites that load before you blink.</p>
-            <p>This entire site? One `index.html`, one `contact.html`, one `about.html`. Zero frameworks. Zero excuses.</p>
-            <p>I believe the web should be <em>fast, fun, and yours</em> — not rented from a cloud overlord.</p>
+            <p>Hey — I’m <span class="highlight">Ben</span>, the rogue signal behind Taupo-Geeks.</p>
+            <p>Born in the terminal, raised on caffeine and CSS. I live in Taupō, New Zealand, where the lake is calmer than my code… most days.</p>
+            <p>This entire site? <strong>Three HTML files.</strong> No React. No npm. No 12 MB bundle. Just raw neon and 0.8 ms load times.</p>
+            <p>I believe the future of the web is <em>light, local, and yours</em>. Double-click and own it.</p>
         </div>
 
         <div class="skills">
-            <div class="skill">HTML/CSS</div>
-            <div class="skill">JavaScript</div>
+            <div class="skill">HTML5</div>
+            <div class="skill">CSS Grid</div>
+            <div class="skill">Vanilla JS</div>
             <div class="skill">GitHub Pages</div>
             <div class="skill">EmailJS</div>
-            <div class="skill">Neon Glow</div>
-            <div class="skill">Zero BS</div>
+            <div class="skill">Neon Overload</div>
         </div>
 
-        <a href="/contact" class="cta">PING ME</a>
+        <div class="cta-wrapper">
+            <a href="/contact" class="cta">PING ME</a>
+        </div>
     </div>
 </section>
 
-<footer>Made with 🔥 • <span id="year"></span></footer>
+<footer>Hand-crafted in Taupō • <span id="year"></span></footer>
 
 <script>
     // MATRIX RAIN
@@ -87,10 +105,10 @@
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
+    const letters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
     const fontSize = 16;
-    const columns = canvas.width / fontSize;
-    const drops = Array(Math.floor(columns)).fill(1);
+    let columns = canvas.width / fontSize;
+    let drops = Array(Math.floor(columns)).fill(1);
     function draw() {
         ctx.fillStyle = 'rgba(13,13,13,0.05)';
         ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -107,6 +125,8 @@
     window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        columns = canvas.width / fontSize;
+        drops = Array(Math.floor(columns)).fill(1);
     });
 
     // THEME TOGGLE
@@ -115,7 +135,7 @@
         const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
         root.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
-        document.querySelector('.theme-toggle').textContent = newTheme === 'dark' ? '🌙' : '☀️';
+        document.querySelector('.theme-toggle').textContent = newTheme === 'dark' ? 'Dark Mode' : 'Light Mode';
     }
     if (localStorage.getItem('theme') === 'light') toggleTheme();
 
